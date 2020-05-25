@@ -4,12 +4,14 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Clothing
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.ChosenItem;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.respository.ClothingRepository;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.ColorCategorizer;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class ClothingService {
 
     @Autowired
