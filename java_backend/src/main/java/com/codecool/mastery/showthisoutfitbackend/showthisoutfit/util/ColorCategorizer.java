@@ -31,7 +31,7 @@ public class ColorCategorizer {
         Map<String, String> colorsCatalog = new HashMap<>();
         List<String> colorListRow = getColorsFromFile(COLOR_GROUP_FILE);
         uploadCatalog(colorsCatalog, colorListRow);
-        colorsCatalog.put("ColorFul", "ColorFul");
+        colorsCatalog.put("colorFul", "colorFul");
 
         List<String> hunColorListRow = getColorsFromFile(COLOR_HUN_FILE);
         uploadCatalog(colorsCatalog, hunColorListRow);
@@ -41,7 +41,7 @@ public class ColorCategorizer {
     private void uploadCatalog(Map<String, String> catalog, List<String> colorList) {
         for (String row : colorList) {
             String[] rowElement = row.split(",");
-            catalog.put(rowElement[COLOR_NAME], rowElement[COLOR_GROUP]);
+            catalog.put(rowElement[COLOR_NAME].toLowerCase(), rowElement[COLOR_GROUP].toLowerCase());
         }
     }
 
@@ -50,7 +50,7 @@ public class ColorCategorizer {
     }
 
     public String getColorGroupNameFromColorCatalog(String mainColor) {
-        mainColor = mainColor.trim();
+        mainColor = mainColor.trim().toLowerCase();
         if (mainColor.isEmpty()) {
             throw new NullPointerException("The color to be categorized is empty.");
         }
@@ -60,7 +60,7 @@ public class ColorCategorizer {
                 return colorsCatalog.get(color);
             }
         }
-        return "Unknown";
+        return "unknown";
     }
 
 }
