@@ -50,8 +50,8 @@ public class ColorCategorizer {
     }
 
     public String getColorGroupNameFromColorCatalog(String mainColor) {
-        mainColor = mainColor.trim().toLowerCase();
-        if (mainColor.isEmpty()) {
+        mainColor = mainColor.toLowerCase();
+        if (mainColor.isBlank()) {
             throw new NullPointerException("The color to be categorized is empty.");
         }
 

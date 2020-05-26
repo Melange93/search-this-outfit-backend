@@ -12,9 +12,7 @@ import java.util.List;
 public class DatasetFileReader {
 
     public List<String> readFile(String filePath) throws IOException {
-        filePath = filePath.trim();
-
-        if (filePath.isEmpty()) {
+        if (filePath.isBlank()) {
             throw new FileNotFoundException("File path is empty");
         }
 

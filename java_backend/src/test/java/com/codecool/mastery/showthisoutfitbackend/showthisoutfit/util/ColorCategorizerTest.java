@@ -17,12 +17,12 @@ class ColorCategorizerTest {
 
     @Test
     public void getColorGroupNameFromColorCatalogTestValidInput() {
-        assertThat("Gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
+        assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test
     public void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
-        assertThat("Unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
+        assertThat("unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
     }
 
     @Test

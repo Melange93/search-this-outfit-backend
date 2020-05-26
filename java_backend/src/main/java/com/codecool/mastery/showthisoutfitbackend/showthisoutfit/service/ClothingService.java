@@ -25,7 +25,7 @@ public class ClothingService {
 
     public Set<Clothing> getTop20ClothingByChosenLabelNameAndColor(ChosenItem chosenItem) {
         String color = clarifaiApiService.getImageDominantColor(chosenItem.getBase64EncodePicture());
-        String colorGroup = colorCategorizer.getColorGroupNameFromColorCatalog(color.trim());
+        String colorGroup = colorCategorizer.getColorGroupNameFromColorCatalog(color);
         return clothingRepository.findTop20ByClassificationENGAndColor(chosenItem.getItemName(), colorGroup);
     }
 
