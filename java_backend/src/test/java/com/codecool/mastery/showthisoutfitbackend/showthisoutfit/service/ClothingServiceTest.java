@@ -2,14 +2,18 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Clothing;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.ChosenItem;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs.BoundingBox;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.respository.ClothingRepository;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.ColorCategorizer;
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +58,20 @@ class ClothingServiceTest {
                         colorGroup.equals(clothing.getColor())
                                 && clothClassificationENG.equals(clothing.getClassificationENG()));
     }
+
+    @Test
+    public void getImageLabelsTest() {
+        Label label1 = new Label(Arrays.asList("top"), new BoundingBox());
+        Label label2 = new Label(Arrays.asList("pants"), new BoundingBox());
+        Label label3 = new Label(Arrays.asList("dress"), new BoundingBox());
+        Set<Label> labels = Sets.newHashSet(label1, label2, label3);
+
+        when(clarifaiApiService.getImageApparelLabels(image)).thenReturn(labels);
+
+        assertThat(labels).isEqualTo(clothingService.getImageLabels(image));
+
+    }
+
 
     private void uploadDateBase(String clothingClassEng, String clothColor, int clothPiece) {
         for (int piece = 0; piece < clothPiece; piece++) {
