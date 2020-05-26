@@ -2,6 +2,8 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Clothing;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.ChosenItem;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.respository.ClothingRepository;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.ColorCategorizer;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,10 @@ public class ClothingService {
         String color = clarifaiApiService.getImageDominantColor(chosenItem.getBase64EncodePicture());
         String colorGroup = colorCategorizer.getColorGroupNameFromColorCatalog(color);
         return clothingRepository.findTop20ByClassificationENGAndColor(chosenItem.getItemName(), colorGroup);
+    }
+
+    public Set<Label> getImageLabels(InputsImage base64Image) {
+        return clarifaiApiService.getImageApparelLabels(base64Image);
     }
 
 }
