@@ -24,7 +24,8 @@ public class ClarifaiApiService {
     @Autowired
     private ClarifaiApiServiceUtil apiServiceUtil;
 
-    private RestTemplate restTemplate =  new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${clarifaiapiservice.apparel.url}")
     private String clarifaiApparelDetection;
