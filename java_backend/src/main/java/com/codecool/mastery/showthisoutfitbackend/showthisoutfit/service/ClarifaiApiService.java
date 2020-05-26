@@ -7,7 +7,6 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs.Outputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util.ClarifaiApiServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,11 +26,13 @@ public class ClarifaiApiService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${clarifaiapiservice.apparel.url}")
-    private String clarifaiApparelDetection;
+    private static final String CLARIFAI_APPAREL_DETECTION = "https://api.clarifai.com/v2/models/72c523807f93e18b431676fb9a58e6ad/outputs";
+    private static final String CLARIFAI_COLOR_DETECTION = "https://api.clarifai.com/v2/models/eeed0b6733a644cea07cf4c60f87ebb7/outputs";
 
-    @Value("${clarifaiapiservice.colordetection.url}")
-    private String clarifaiColorDetection;
+    public ClarifaiApiService(ClarifaiApiServiceUtil clarifaiApiServiceUtil, RestTemplate restTemplate) {
+        this.apiServiceUtil = clarifaiApiServiceUtil;
+        this.restTemplate = restTemplate;
+    }
 
     public Set<Label> getImageApparelLabels(InputsImage base64EncodePicture) {
         HttpHeaders commonHeaders = apiServiceUtil.getCommonHeaders();
@@ -40,7 +41,7 @@ public class ClarifaiApiService {
 
         ResponseEntity<Outputs> outputsResponseEntity =
                 restTemplate.exchange(
-                        clarifaiApparelDetection,
+                        CLARIFAI_APPAREL_DETECTION,
                         HttpMethod.POST,
                         requestEntity,
                         Outputs.class);
@@ -55,7 +56,7 @@ public class ClarifaiApiService {
 
         ResponseEntity<ColorOutputs> outputsResponseEntity =
                 restTemplate.exchange(
-                        clarifaiColorDetection,
+                        CLARIFAI_COLOR_DETECTION,
                         HttpMethod.POST,
                         requestEntity,
                         ColorOutputs.class);
