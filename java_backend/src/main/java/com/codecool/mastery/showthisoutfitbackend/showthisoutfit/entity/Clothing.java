@@ -34,7 +34,6 @@ public class Clothing {
 
     @Builder.Default
     @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
-    @EqualsAndHashCode.Exclude
     private List<ImageLink> images = new LinkedList<>();
 
     private String color;
