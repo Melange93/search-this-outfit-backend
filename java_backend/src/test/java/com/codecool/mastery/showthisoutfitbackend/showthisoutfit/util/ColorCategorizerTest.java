@@ -16,17 +16,17 @@ class ColorCategorizerTest {
     }
 
     @Test
-    public void getColorGroupNameFromColorCatalogTestValidInput() {
+    void getColorGroupNameFromColorCatalogTestValidInput() {
         assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test
-    public void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
+    void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
         assertThat("unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
     }
 
     @Test
-    public void getColorGroupNameFromColorCatalogyTestInvalidInputEmptyString() {
+    void getColorGroupNameFromColorCatalogyTestInvalidInputEmptyString() {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(""));
     }
@@ -38,7 +38,7 @@ class ColorCategorizerTest {
     }
 
     @Test
-    public void colorsCatalogTest() {
+    void colorsCatalogTest() {
         assertThat(colorCategorizer.getColorsCatalog()).hasSizeGreaterThan(0);
     }
 

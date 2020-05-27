@@ -53,7 +53,7 @@ class ClarifaiApiServiceUtilTest {
         conceptsItem.setName("test");
 
         OutputsData outputsData = new OutputsData();
-        outputsData.setConcepts(Arrays.asList(conceptsItem));
+        outputsData.setConcepts(Collections.singletonList(conceptsItem));
 
         BoundingBox boundingBox = new BoundingBox();
         boundingBox.setLeftCol(0.1);
@@ -69,15 +69,15 @@ class ClarifaiApiServiceUtilTest {
         regionsItem.setRegionInfo(regionInfo);
 
         OutputsData data = new OutputsData();
-        data.setRegions(Arrays.asList(regionsItem));
+        data.setRegions(Collections.singletonList(regionsItem));
 
         OutputsItem outputsItem = new OutputsItem();
         outputsItem.setData(data);
 
         Outputs outputs = new Outputs();
-        outputs.setOutputs(Arrays.asList(outputsItem));
+        outputs.setOutputs(Collections.singletonList(outputsItem));
 
-        Label label = new Label(Arrays.asList("test"), boundingBox);
+        Label label = new Label(Collections.singletonList("test"), boundingBox);
         Set<Label> labels = Sets.newHashSet(label);
 
         assertThat(labels).isEqualTo(util.createLabelSetFromOutputs(outputs));
@@ -116,7 +116,7 @@ class ClarifaiApiServiceUtilTest {
         ColorOutputsItem item = new ColorOutputsItem();
         item.setData(data);
         ColorOutputs colorOutputs = new ColorOutputs();
-        colorOutputs.setOutputs(Arrays.asList(item));
+        colorOutputs.setOutputs(Collections.singletonList(item));
 
         assertThat("testColor3").isEqualTo(util.getHighestValueColorFromColorOutputs(colorOutputs));
     }

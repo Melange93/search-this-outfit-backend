@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +32,7 @@ class ClothingServiceTest {
     private InputsImage image;
 
     @BeforeEach
-    public void init() {
+    void init() {
         colorCategorizer = mock(ColorCategorizer.class);
         clarifaiApiService = mock(ClarifaiApiService.class);
         clothingService = new ClothingService(clothingRepository, clarifaiApiService, colorCategorizer);
@@ -40,7 +40,7 @@ class ClothingServiceTest {
     }
 
     @Test
-    public void getTop20ClothingByChosenLabelNameAndColorTest() {
+    void getTop20ClothingByChosenLabelNameAndColorTest() {
         String clothClassificationENG = "top";
         String subColor = "firebrick";
         String colorGroup = "red";
@@ -60,10 +60,10 @@ class ClothingServiceTest {
     }
 
     @Test
-    public void getImageLabelsTest() {
-        Label label1 = new Label(Arrays.asList("top"), new BoundingBox());
-        Label label2 = new Label(Arrays.asList("pants"), new BoundingBox());
-        Label label3 = new Label(Arrays.asList("dress"), new BoundingBox());
+    void getImageLabelsTest() {
+        Label label1 = new Label(Collections.singletonList("top"), new BoundingBox());
+        Label label2 = new Label(Collections.singletonList("pants"), new BoundingBox());
+        Label label3 = new Label(Collections.singletonList("dress"), new BoundingBox());
         Set<Label> labels = Sets.newHashSet(label1, label2, label3);
 
         when(clarifaiApiService.getImageApparelLabels(image)).thenReturn(labels);
@@ -71,7 +71,6 @@ class ClothingServiceTest {
         assertThat(labels).isEqualTo(clothingService.getImageLabels(image));
 
     }
-
 
     private void uploadDateBase(String clothingClassEng, String clothColor, int clothPiece) {
         for (int piece = 0; piece < clothPiece; piece++) {

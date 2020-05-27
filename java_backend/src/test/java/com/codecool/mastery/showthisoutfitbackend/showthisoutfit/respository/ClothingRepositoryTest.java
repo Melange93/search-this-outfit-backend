@@ -11,7 +11,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
-public class ClothingRepositoryTest {
+class ClothingRepositoryTest {
 
     @Autowired
     private ClothingRepository clothingRepository;
@@ -20,7 +20,7 @@ public class ClothingRepositoryTest {
     private ImageLinkRepository imageLinkRepository;
 
     @Test
-    public void saveOneSimple() {
+    void saveOneSimple() {
         Clothing clothing = Clothing.builder()
                 .brand("TEST")
                 .fashionDaysProductName("Big test")
@@ -43,7 +43,7 @@ public class ClothingRepositoryTest {
     }
 
     @Test
-    public void findTop20ByClassificationENGTestReturnTop20ClothsWithChosenLabelNameAndColor() {
+    void findTop20ByClassificationENGTestReturnTop20ClothsWithChosenLabelNameAndColor() {
         String clothClassificationENG = "pants";
         String color = "red";
 
@@ -64,7 +64,7 @@ public class ClothingRepositoryTest {
     }
 
     @Test
-    public void findTop20ByClassificationENGAndColorTestEmptyString() {
+    void findTop20ByClassificationENGAndColorTestEmptyString() {
         String clothClassificationENG = "pants";
         String color = "red";
 
@@ -83,7 +83,7 @@ public class ClothingRepositoryTest {
     }
 
     @Test
-    public void findTop20ByClassificationENGTestWhiteSpaceString() {
+    void findTop20ByClassificationENGTestWhiteSpaceString() {
         String clothClassificationENG = "pants";
         String color = "red";
 

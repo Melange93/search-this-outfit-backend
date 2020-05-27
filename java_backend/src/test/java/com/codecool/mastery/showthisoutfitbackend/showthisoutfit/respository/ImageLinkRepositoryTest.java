@@ -10,13 +10,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
-public class ImageLinkRepositoryTest {
+class ImageLinkRepositoryTest {
 
     @Autowired
     private ImageLinkRepository imageLinkRepository;
 
     @Test
-    public void saveOneSimple() {
+    void saveOneSimple() {
         ImageLink test = ImageLink.builder().url("test.com").build();
         imageLinkRepository.save(test);
 
