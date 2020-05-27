@@ -86,11 +86,11 @@ class ClarifaiApiServiceUtilTest {
     @Test
     void getHighestValueColorFromColorOutputsTest() {
         W3c color1 = new W3c();
-        color1.setName("tesColor1");
+        color1.setName("testColor1");
         W3c color2 = new W3c();
-        color2.setName("tesColor2");
+        color2.setName("testColor2");
         W3c color3 = new W3c();
-        color3.setName("tesColor3");
+        color3.setName("testColor3");
 
         Data data = Data.builder()
                 .colors(Arrays.asList(
@@ -118,6 +118,6 @@ class ClarifaiApiServiceUtilTest {
         ColorOutputs colorOutputs = new ColorOutputs();
         colorOutputs.setOutputs(Arrays.asList(item));
 
-        assertThat("tesColor3").isEqualTo(util.getHighestValueColorFromColorOutputs(colorOutputs));
+        assertThat("testColor3").isEqualTo(util.getHighestValueColorFromColorOutputs(colorOutputs));
     }
 }
