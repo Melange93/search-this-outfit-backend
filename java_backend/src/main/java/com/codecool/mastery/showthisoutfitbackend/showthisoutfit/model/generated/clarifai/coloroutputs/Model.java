@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.coloroutputs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,11 +19,8 @@ public class Model{
 	@JsonProperty("output_info")
 	private OutputInfo outputInfo;
 
-	@JsonProperty("display_name")
-	private String displayName;
-
 	@JsonProperty("app_id")
-	private String appId;
+	private Object appId;
 
 	public ModelVersion getModelVersion(){
 		return modelVersion;
@@ -45,25 +42,7 @@ public class Model{
 		return outputInfo;
 	}
 
-	public String getDisplayName(){
-		return displayName;
-	}
-
-	public String getAppId(){
+	public Object getAppId(){
 		return appId;
 	}
-
-	@Override
- 	public String toString(){
-		return 
-			"Model{" + 
-			"model_version = '" + modelVersion + '\'' + 
-			",name = '" + name + '\'' + 
-			",created_at = '" + createdAt + '\'' + 
-			",id = '" + id + '\'' + 
-			",output_info = '" + outputInfo + '\'' + 
-			",display_name = '" + displayName + '\'' + 
-			",app_id = '" + appId + '\'' + 
-			"}";
-		}
 }
