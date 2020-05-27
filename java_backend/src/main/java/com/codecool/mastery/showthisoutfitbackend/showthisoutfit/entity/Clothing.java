@@ -43,9 +43,4 @@ public class Clothing {
     @Lob
     private String productDetails;
 
-    public void addImage(ImageLink imageLink) {
-        imageLink.setClothing(this);
-        this.images.add(imageLink);
-    }
-
 }
