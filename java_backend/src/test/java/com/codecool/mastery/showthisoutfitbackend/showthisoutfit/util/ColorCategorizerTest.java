@@ -15,10 +15,10 @@ class ColorCategorizerTest {
     ColorCategorizerTest() throws IOException {
     }
 
-    @Test
-    void getColorGroupNameFromColorCatalogTestValidInput() {
-        assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
-    }
+//    @Test
+//    void getColorGroupNameFromColorCatalogTestValidInput() {
+//        assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
+//    }
 
     @Test
     void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
