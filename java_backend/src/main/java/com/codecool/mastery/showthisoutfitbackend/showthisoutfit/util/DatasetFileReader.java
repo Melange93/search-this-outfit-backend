@@ -11,11 +11,9 @@ import java.util.List;
 @Slf4j
 public class DatasetFileReader {
 
-    public List<String> readFile(String filePath) throws Exception {
-        filePath = filePath.trim();
-
-        if (filePath.isEmpty()) {
-            throw new Exception("File path is empty");
+    public List<String> readFile(String filePath) throws IOException {
+        if (filePath.isBlank()) {
+            throw new FileNotFoundException("File path is empty");
         }
 
         List<String> result = new LinkedList<>();
@@ -31,11 +29,8 @@ public class DatasetFileReader {
                 }
                 result.add(row);
             }
-
         } catch (FileNotFoundException e) {
-            String errorMessage = "File path not found: " + filePath + ", " + e;
-            log.error(errorMessage);
-            throw new FileNotFoundException(errorMessage);
+            throw new FileNotFoundException("File path not found: " + filePath + ", " + e);
         }
         return result;
     }

@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

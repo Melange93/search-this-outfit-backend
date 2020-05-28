@@ -1,47 +1,65 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
-import com.google.common.collect.Sets;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-@Data
+@Slf4j
 public class ColorCategorizer {
 
-    private Map<String, Set<String>> colorsCatalog = createColorsCatalog();
+    private DatasetFileReader fileReader;
 
+    private static final int COLOR_NAME = 0;
+    private static final int COLOR_GROUP = 1;
+    private static final String COLOR_GROUP_FILE = "src/main/resources/static/colors/colors.csv";
+    private static final String COLOR_HUN_FILE = "src/main/resources/static/colors/colorsHun.csv";
+    private Map<String, String> colorsCatalog;
 
-    private Map<String, Set<String>> createColorsCatalog() {
-        Map<String, Set<String>> colors = new HashMap<>();
-        colors.put("mutliple", Sets.newHashSet("mintás", "többszínű", "színes"));
-        colors.put("black", Sets.newHashSet("fekete"));
-        colors.put("white", Sets.newHashSet("szürke", "ezüst", "csont", "fehér"));
-        colors.put("green", Sets.newHashSet("zöld", "khaki"));
-        colors.put("blue", Sets.newHashSet("kék", "türkiz"));
-        colors.put("red", Sets.newHashSet("bordó", "lazac", "rózsaszín", "fukszia", "vörös", "málna", "korall", "piros"));
-        colors.put("yellow", Sets.newHashSet("sárga", "narancs", "arany", "mandarin", "barack"));
-        colors.put("purple", Sets.newHashSet("lila"));
-        colors.put("cream", Sets.newHashSet("bézs", "barna", "krém", "bronz", "drapp"));
-        return colors;
+    public ColorCategorizer(DatasetFileReader fileReader) throws IOException {
+        this.fileReader = fileReader;
+        this.colorsCatalog = createColorsCatalog();
     }
 
-    public String getCategory(String mainColor) {
-        mainColor = mainColor.trim();
-        if (mainColor.isEmpty()) {
+    private Map<String, String> createColorsCatalog() throws IOException {
+        Map<String, String> colorsCatalog = new HashMap<>();
+        List<String> colorListRow = getColorsFromFile(COLOR_GROUP_FILE);
+        uploadCatalog(colorsCatalog, colorListRow);
+        colorsCatalog.put("colorFul", "colorFul");
+
+        List<String> hunColorListRow = getColorsFromFile(COLOR_HUN_FILE);
+        uploadCatalog(colorsCatalog, hunColorListRow);
+        return colorsCatalog;
+    }
+
+    private void uploadCatalog(Map<String, String> catalog, List<String> colorList) {
+        for (String row : colorList) {
+            String[] rowElement = row.split(",");
+            catalog.put(rowElement[COLOR_NAME].toLowerCase(), rowElement[COLOR_GROUP].toLowerCase());
+        }
+    }
+
+    private List<String> getColorsFromFile(String filePath) throws IOException {
+        return fileReader.readFile(filePath);
+    }
+
+    public String getColorGroupNameFromColorCatalog(String mainColor) {
+        mainColor = mainColor.toLowerCase();
+        if (mainColor.isBlank()) {
             throw new NullPointerException("The color to be categorized is empty.");
         }
 
-        for (Map.Entry<String, Set<String>> colors : colorsCatalog.entrySet()) {
-            for (String subColorName : colors.getValue()) {
-                if (mainColor.contains(subColorName)) {
-                    return colors.getKey();
-                }
-
+        for (String color: colorsCatalog.keySet()) {
+            if (color.equals(mainColor)) {
+                return colorsCatalog.get(color);
             }
         }
-        return mainColor;
+        return "unknown";
     }
 
 }

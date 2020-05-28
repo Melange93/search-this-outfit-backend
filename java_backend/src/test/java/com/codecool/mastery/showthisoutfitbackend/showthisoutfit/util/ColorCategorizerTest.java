@@ -2,32 +2,39 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.*;
 
 class ColorCategorizerTest {
 
-    private ColorCategorizer colorCategorizer = new ColorCategorizer();
+    private DatasetFileReader datasetFileReader = new DatasetFileReader();
 
-    @Test
-    public void getCategoryTestValidInput() {
-        assertThat("red".equals(colorCategorizer.getCategory("piros")));
+    private ColorCategorizer colorCategorizer = new ColorCategorizer(datasetFileReader);
+
+    ColorCategorizerTest() throws IOException {
     }
 
     @Test
-    public void getCategoryTestValidInputButNotInTheCategory() {
-        assertThat("else".equals(colorCategorizer.getCategory("körte")));
+    void getColorGroupNameFromColorCatalogTestValidInput() {
+        assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test
-    public void getCategoryTestInvalidInputEmptyString() {
+    void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
+        assertThat("unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
+    }
+
+    @Test
+    void getColorGroupNameFromColorCatalogyTestInvalidInputEmptyString() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(""));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(""));
     }
 
     @Test
-    public void getCategoryTestInvalidInputWhiteSpace() {
+    public void getColorGroupNameFromColorCatalogTestInvalidInputWhiteSpace() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(" "));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(" "));
     }
 
 }
