@@ -28,6 +28,13 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class ClarifaiApiServiceTest {
 
+    @Mock
+    private RestTemplate restTemplate;
+
+    @Mock
+    private ClarifaiApiServiceUtil clarifaiApiServiceUtil;
+
+    @InjectMocks
     private ClarifaiApiService clarifaiApiService;
 
     private InputsImage image;
@@ -55,6 +62,8 @@ class ClarifaiApiServiceTest {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.<Class<Outputs>>any())).thenReturn(responseEntity);
 
+        when(clarifaiApiServiceUtil.createLabelSetFromOutputs(testOutput)).thenReturn(labels);
+
         assertThat(labels).isEqualTo(clarifaiApiService.getImageApparelLabels(image));
     }
 
@@ -68,6 +77,8 @@ class ClarifaiApiServiceTest {
                 ArgumentMatchers.any(HttpMethod.class),
                 ArgumentMatchers.any(),
                 ArgumentMatchers.<Class<ColorOutputs>>any())).thenReturn(responseEntity);
+
+        when(clarifaiApiServiceUtil.getHighestValueColorFromColorOutputs(colorOutputsTest)).thenReturn("testColor3");
 
         assertThat("testColor3").isEqualTo(clarifaiApiService.getImageDominantColor(image));
     }
