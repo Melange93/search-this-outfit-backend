@@ -9,6 +9,8 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsItem;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -16,9 +18,11 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
 class ClarifaiApiServiceUtilTest {
 
-    private ClarifaiApiServiceUtil util = new ClarifaiApiServiceUtil();
+    @Autowired
+    private ClarifaiApiServiceUtil util;
 
     @Test
     void getCommonHeadersTestContentTypeApplicationJson() {

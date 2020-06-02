@@ -1,23 +1,20 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
 class ColorCategorizerTest {
 
-    private DatasetFileReader datasetFileReader = new DatasetFileReader();
-
-    private ColorCategorizer colorCategorizer = new ColorCategorizer(datasetFileReader);
-
-    ColorCategorizerTest() throws IOException {
-    }
+    @Autowired
+    private ColorCategorizer colorCategorizer;
 
     @Test
     void getColorGroupNameFromColorCatalogTestValidInput() {
-        assertThat("gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
+        assertThat("black").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test

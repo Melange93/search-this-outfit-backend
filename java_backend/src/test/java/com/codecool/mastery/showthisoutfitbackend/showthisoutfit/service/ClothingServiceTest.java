@@ -10,32 +10,36 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.ColorCateg
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class ClothingServiceTest {
 
-    @Autowired
+    @Mock
     private ClothingRepository clothingRepository;
 
+    @Mock
     private ColorCategorizer colorCategorizer;
+
+    @Mock
     private ClarifaiApiService clarifaiApiService;
+
+    @InjectMocks
     private ClothingService clothingService;
+
     private InputsImage image;
 
     @BeforeEach
     void init() {
-        colorCategorizer = mock(ColorCategorizer.class);
-        clarifaiApiService = mock(ClarifaiApiService.class);
-        clothingService = new ClothingService(clothingRepository, clarifaiApiService, colorCategorizer);
         image = new InputsImage();
     }
 
@@ -45,13 +49,19 @@ class ClothingServiceTest {
         String subColor = "firebrick";
         String colorGroup = "red";
         int piece = 20;
-        uploadDateBase(clothClassificationENG, colorGroup, piece);
+        Set<Clothing> testClothesSet = testClothesSet(clothClassificationENG, colorGroup, piece);
 
         ChosenItem item = new ChosenItem(clothClassificationENG, image);
-        when(clarifaiApiService.getImageDominantColor(item.getBase64EncodePicture())).thenReturn(subColor);
-        when(colorCategorizer.getColorGroupNameFromColorCatalog(subColor)).thenReturn(colorGroup);
+
+        when(clarifaiApiService.getImageDominantColor(item.getBase64EncodePicture()))
+                .thenReturn(subColor);
+        when(colorCategorizer.getColorGroupNameFromColorCatalog(subColor))
+                .thenReturn(colorGroup);
+        when(clothingRepository.findTop20ByClassificationENGAndColor(clothClassificationENG, colorGroup))
+                .thenReturn(testClothesSet);
 
         Set<Clothing> clothingSet = clothingService.getTop20ClothingByChosenLabelNameAndColor(item);
+
         assertThat(clothingSet)
                 .hasSize(20)
                 .allMatch(clothing ->
@@ -72,13 +82,16 @@ class ClothingServiceTest {
 
     }
 
-    private void uploadDateBase(String clothingClassEng, String clothColor, int clothPiece) {
+    private Set<Clothing> testClothesSet(String clothingClassEng, String clothColor, int clothPiece) {
+        Set<Clothing> test = new HashSet<>();
         for (int piece = 0; piece < clothPiece; piece++) {
-            clothingRepository.save(Clothing.builder()
+            test.add(Clothing.builder()
+                    .catalogId(Integer.toString(piece))
                     .classificationENG(clothingClassEng)
                     .color(clothColor)
                     .build());
         }
+        return test;
     }
 
 }

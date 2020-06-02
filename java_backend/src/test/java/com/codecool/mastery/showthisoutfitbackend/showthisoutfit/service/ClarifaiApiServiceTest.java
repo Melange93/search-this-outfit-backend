@@ -9,6 +9,9 @@ import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +22,26 @@ import java.util.Collections;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
 class ClarifaiApiServiceTest {
 
-    private ClarifaiApiService clarifaiApiService;
+    @Mock
     private RestTemplate restTemplate;
+
+    @Mock
+    private ClarifaiApiServiceUtil clarifaiApiServiceUtil;
+
+    @InjectMocks
+    private ClarifaiApiService clarifaiApiService;
+
     private InputsImage image;
 
     @BeforeEach
     public void init() {
         image = new InputsImage();
-        restTemplate = mock(RestTemplate.class);
-        clarifaiApiService = new ClarifaiApiService(new ClarifaiApiServiceUtil(), restTemplate);
     }
 
     @Test
@@ -48,10 +57,12 @@ class ClarifaiApiServiceTest {
 
         ResponseEntity<Outputs> responseEntity = new ResponseEntity<>(testOutput, HttpStatus.ACCEPTED);
 
-        when(restTemplate.exchange(ArgumentMatchers.anyString(),
-                ArgumentMatchers.any(HttpMethod.class),
-                ArgumentMatchers.any(),
+        when(restTemplate.exchange(anyString(),
+                any(HttpMethod.class),
+                any(),
                 ArgumentMatchers.<Class<Outputs>>any())).thenReturn(responseEntity);
+
+        when(clarifaiApiServiceUtil.createLabelSetFromOutputs(testOutput)).thenReturn(labels);
 
         assertThat(labels).isEqualTo(clarifaiApiService.getImageApparelLabels(image));
     }
@@ -62,10 +73,12 @@ class ClarifaiApiServiceTest {
 
         ResponseEntity<ColorOutputs> responseEntity = new ResponseEntity<>(colorOutputsTest, HttpStatus.ACCEPTED);
 
-        when(restTemplate.exchange(ArgumentMatchers.anyString(),
-                ArgumentMatchers.any(HttpMethod.class),
-                ArgumentMatchers.any(),
+        when(restTemplate.exchange(anyString(),
+                any(HttpMethod.class),
+                any(),
                 ArgumentMatchers.<Class<ColorOutputs>>any())).thenReturn(responseEntity);
+
+        when(clarifaiApiServiceUtil.getHighestValueColorFromColorOutputs(colorOutputsTest)).thenReturn("testColor3");
 
         assertThat("testColor3").isEqualTo(clarifaiApiService.getImageDominantColor(image));
     }
