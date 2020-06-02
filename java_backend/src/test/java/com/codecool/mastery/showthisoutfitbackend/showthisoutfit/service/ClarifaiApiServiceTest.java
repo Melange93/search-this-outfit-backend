@@ -57,9 +57,9 @@ class ClarifaiApiServiceTest {
 
         ResponseEntity<Outputs> responseEntity = new ResponseEntity<>(testOutput, HttpStatus.ACCEPTED);
 
-        when(restTemplate.exchange(ArgumentMatchers.anyString(),
-                ArgumentMatchers.any(HttpMethod.class),
-                ArgumentMatchers.any(),
+        when(restTemplate.exchange(anyString(),
+                any(HttpMethod.class),
+                any(),
                 ArgumentMatchers.<Class<Outputs>>any())).thenReturn(responseEntity);
 
         when(clarifaiApiServiceUtil.createLabelSetFromOutputs(testOutput)).thenReturn(labels);
@@ -73,9 +73,9 @@ class ClarifaiApiServiceTest {
 
         ResponseEntity<ColorOutputs> responseEntity = new ResponseEntity<>(colorOutputsTest, HttpStatus.ACCEPTED);
 
-        when(restTemplate.exchange(ArgumentMatchers.anyString(),
-                ArgumentMatchers.any(HttpMethod.class),
-                ArgumentMatchers.any(),
+        when(restTemplate.exchange(anyString(),
+                any(HttpMethod.class),
+                any(),
                 ArgumentMatchers.<Class<ColorOutputs>>any())).thenReturn(responseEntity);
 
         when(clarifaiApiServiceUtil.getHighestValueColorFromColorOutputs(colorOutputsTest)).thenReturn("testColor3");
