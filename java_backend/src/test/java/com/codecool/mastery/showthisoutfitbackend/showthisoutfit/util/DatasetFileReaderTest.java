@@ -1,24 +1,20 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
 class DatasetFileReaderTest {
 
+    @Autowired
     private DatasetFileReader datasetFileReader;
-
-    @BeforeEach
-    void init() {
-        datasetFileReader = new DatasetFileReader();
-    }
-
 
     @Test
     void emptyFilePath() {
