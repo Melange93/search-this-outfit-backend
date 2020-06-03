@@ -37,9 +37,13 @@ public class WebScraper {
         writer.append(",");
         writer.append("classificationENG");
         writer.append(",");
+        writer.append("subclassificationENG");
+        writer.append(",");
         writer.append("genderHUN");
         writer.append(",");
         writer.append("classificationHUN");
+        writer.append(",");
+        writer.append("subclassificationHUN");
 
         writer.append(",");
         writer.append("productId");
@@ -70,7 +74,7 @@ public class WebScraper {
         writer.close();
 
         for (int j = 1; j < 3; j++) {
-            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-szoknya?page=" + j).get()));
+            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-ruha?page=" + j).get()));
             System.out.println(j);
             Thread.sleep(30000);
         }
@@ -106,11 +110,15 @@ public class WebScraper {
         for (Element productLink : productsLinkList) {
             writer.append("women");
             writer.append(",");
-            writer.append("skirt");
+            writer.append("dress");
+            writer.append(",");
+            writer.append("dress");
             writer.append(",");
             writer.append("női");
             writer.append(",");
-            writer.append("szoknya");
+            writer.append("ruha");
+            writer.append(",");
+            writer.append("ruha");
             writer.append(",");
 
             writer.append(productLink.attributes().dataset().get("vrecom-productid"));
