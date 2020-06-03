@@ -98,8 +98,7 @@ public class Initializer {
                     clothing.setImages(imageLinks);
                     imageLinkRepository.saveAll(imageLinks);
 
-                    String[] cols = result[COLORS].split("\\?");
-                    clothing.setColor(colorChanger.getColorGroupNameFromColorCatalog(cols[MAIN_COLOR].toLowerCase()));
+                    clothing.setColor(colorChanger.getColorGroupNameFromColorCatalog(result[COLORS].toLowerCase()));
                     clothing.setCatalogId(result[CATALOG_ID]);
                     clothing.setProductDetails(result[PRODUCT_DETAILS].replaceAll("\\$", ", "));
 
