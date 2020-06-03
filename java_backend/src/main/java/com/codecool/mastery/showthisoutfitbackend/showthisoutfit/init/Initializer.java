@@ -27,9 +27,10 @@ public class Initializer {
 
     private static final String DATASET_MAIN_FOLDER_PATH = "src/main/resources/static/databasedata/";
     private String[] datasetFileNames = {"women_dress.csv",
-            "women_jeans.csv",
+            "women_pants.csv",
+            "women_shorts.csv",
             "women_skirt.csv",
-            "women_tshirt.csv"};
+            "women_top.csv"};
 
     private static final int GENDER_ENG = 0;
     private static final int CLASSIFICATION_ENG = 1;
