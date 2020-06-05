@@ -5,12 +5,13 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.ChosenIte
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.ClothingService;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.WebScraper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @CrossOrigin
@@ -20,6 +21,9 @@ public class ClothingController {
     @Autowired
     private ClothingService clothingService;
 
+    @Autowired
+    private WebScraper webScraper;
+
     @PostMapping("/picture/upload")
     public Set<Label> getUploadImageLabels(@RequestBody InputsImage base64Image) {
         return clothingService.getImageLabels(base64Image);
@@ -28,5 +32,10 @@ public class ClothingController {
     @PostMapping("/result")
     public Set<Clothing> result(@RequestBody ChosenItem chosenItem) {
         return clothingService.getTop20ClothingByChosenLabelNameAndColor(chosenItem);
+    }
+
+    @GetMapping("/web")
+    public List<List<Map<String,String>>> startWebScraping() throws IOException, InterruptedException {
+        return webScraper.startWebScraping();
     }
 }

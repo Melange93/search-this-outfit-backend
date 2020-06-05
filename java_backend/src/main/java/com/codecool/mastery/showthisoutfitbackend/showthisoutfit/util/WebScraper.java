@@ -74,7 +74,7 @@ public class WebScraper {
         writer.close();
 
         for (int j = 1; j < 3; j++) {
-            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-farmernadr%C3%A1g?page=" + j).get()));
+            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-ruha?page=" + j).get()));
             System.out.println(j);
             Thread.sleep(30000);
         }
@@ -110,15 +110,15 @@ public class WebScraper {
         for (Element productLink : productsLinkList) {
             writer.append("women");
             writer.append(",");
-            writer.append("pants");
+            writer.append("dress");
             writer.append(",");
-            writer.append("jeans");
+            writer.append("dress");
             writer.append(",");
             writer.append("női");
             writer.append(",");
-            writer.append("nadrág");
+            writer.append("ruha");
             writer.append(",");
-            writer.append("farmernadrág");
+            writer.append("ruha");
             writer.append(",");
 
             writer.append(productLink.attributes().dataset().get("vrecom-productid"));
@@ -156,7 +156,7 @@ public class WebScraper {
             String pInfo = secondDoc.getElementById("product_details").text();
             int startColor = pInfo.lastIndexOf("Szín: ") + 6;
             String startColorName = pInfo.substring(startColor);
-            int endColor = startColorName.lastIndexOf("Minta");
+            int endColor = startColorName.lastIndexOf("Stílus");
             if (endColor == -1) {
                 endColor = 0;
             }
