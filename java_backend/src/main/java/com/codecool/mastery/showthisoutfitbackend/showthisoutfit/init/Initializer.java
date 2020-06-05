@@ -34,7 +34,7 @@ public class Initializer {
     private ColorCategorizer colorChanger;
 
     private static final String DATASET_MAIN_FOLDER_PATH = "src/main/resources/static/databasedata/";
-    private String[] datasetFileNames = {"women_dress.csv",
+    private final String[] datasetFileNames = {"women_dress.csv",
             "women_pants.csv",
             "women_shorts.csv",
             "women_skirt.csv",
