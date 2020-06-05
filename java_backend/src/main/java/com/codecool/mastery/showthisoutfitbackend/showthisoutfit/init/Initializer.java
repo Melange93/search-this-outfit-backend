@@ -55,8 +55,7 @@ public class Initializer {
     private static final int BRAND = 12;
     private static final int STOCK_STATUS_ENG = 13;
     private static final int IMAGES = 14;
-    private static final int COLORS = 15;
-    private static final int MAIN_COLOR = 0;
+    private static final int COLOR = 15;
     private static final int CATALOG_ID = 16;
     private static final int PRODUCT_DETAILS = 17;
 
@@ -98,7 +97,7 @@ public class Initializer {
                     clothing.setImages(imageLinks);
                     imageLinkRepository.saveAll(imageLinks);
 
-                    clothing.setColor(colorChanger.getColorGroupNameFromColorCatalog(result[COLORS].toLowerCase()));
+                    clothing.setColor(colorChanger.getColorGroupNameFromColorCatalog(result[COLOR].toLowerCase()));
                     clothing.setCatalogId(result[CATALOG_ID]);
                     clothing.setProductDetails(result[PRODUCT_DETAILS].replaceAll("\\$", ", "));
 
