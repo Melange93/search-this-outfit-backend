@@ -9,4 +9,7 @@ After that, the user can choose which clothes interested him/her, and the system
 <hr>
 <strong>Please use our front-end to fully enjoy the application: https://github.com/BotondSiklosi/search-this-outfit-frontEnd
 <br>
-Please set your API_KEY to the environment variable.</strong>
+Please set your API_KEY to the environment variable.
+<br>
+<br>
+The project is still under development!</strong>
