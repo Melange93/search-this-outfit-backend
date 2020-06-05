@@ -34,8 +34,4 @@ public class ClothingController {
         return clothingService.getTop20ClothingByChosenLabelNameAndColor(chosenItem);
     }
 
-    @GetMapping("/web")
-    public List<List<Map<String,String>>> startWebScraping() throws IOException, InterruptedException {
-        return webScraper.startWebScraping();
-    }
 }
