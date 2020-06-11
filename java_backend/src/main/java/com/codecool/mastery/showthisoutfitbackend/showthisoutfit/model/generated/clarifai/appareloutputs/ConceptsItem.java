@@ -1,7 +1,9 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class ConceptsItem{
 
 	@JsonProperty("name")
@@ -15,22 +17,6 @@ public class ConceptsItem{
 
 	@JsonProperty("app_id")
 	private String appId;
-
-	public String getName(){
-		return name;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public double getValue(){
-		return value;
-	}
-
-	public String getAppId(){
-		return appId;
-	}
 
 	@Override
  	public String toString(){

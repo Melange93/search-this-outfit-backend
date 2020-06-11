@@ -1,39 +1,35 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class DatasetFileReaderTest {
+@SpringBootTest
+class DatasetFileReaderTest {
 
+    @Autowired
     private DatasetFileReader datasetFileReader;
 
-    @BeforeEach
-    public void init() {
-        datasetFileReader = new DatasetFileReader();
-    }
-
-
     @Test
-    public void emptyFilePath() {
+    void emptyFilePath() {
         assertThatExceptionOfType(Exception.class)
                 .isThrownBy(() -> datasetFileReader.readFile(" "));
     }
 
     @Test
-    public void fileNotFound() {
+    void fileNotFound() {
         assertThatExceptionOfType(FileNotFoundException.class)
                 .isThrownBy(() -> datasetFileReader.readFile("/test/false/path"));
     }
 
     @Test
-    public void readLinesFromTestFileListWithoutHeader() throws Exception {
+    void readLinesFromTestFileListWithoutHeader() throws Exception {
         List<String> test = new ArrayList<>();
         test.add("women,dress,dress,női,ruha,ruha,2440415,https://www.fashiondays.hu/v/2440415/n%C5%91i-/ruh%C3%A1zat?productSlug=ema-kiv%C3%A1gott-v%C3%A1ll%C3%BA-ruha-n%C5%91i-diesel&tagId=1,https://www.fashiondays.hu/p/ema-kiv%C3%A1gott-v%C3%A1ll%C3%BA-ruha-n%C5%91i-diesel-p2440415-1/,Ema kivágott vállú ruha,35099,98.28,Diesel,limited_quantity,https://fdcdn.akamaized.net/m/780x1132/products/27714/27713484/images/res_fcab13f48d2eefa00a21c6f95064caf7.jpg?s=vmfbOZiNF4pE https://fdcdn.akamaized.net/m/780x1132/products/27714/27713484/images/res_05bf89f02f0e4f16a752f02e5c738fa4.jpg?s=Xl0otTnuJYf6 https://fdcdn.akamaized.net/m/780x1132/products/27714/27713484/images/res_ddd195dfcf1e2596a3c8674f61b37042.jpg?s=S1sox4_FAiu_ https://fdcdn.akamaized.net/m/780x1132/products/27714/27713484/images/res_fb100cc052e7082db2d9c8e39ac67d93.jpg?s=0g_uEVuN6ga0,fekete,00SM7D-0JASE-9XX,Leírás Szín: fekete Stílus: hétköznapi Anyag: pamut Minta: nincs Szabás: egyenes Hossza: mini Nyakkivágás: kerek Ujjak hossza: hosszú Zsebek: kenguruzseb Összetétel Anyag: 100% pamut Modell információ: A modell S-es méretű terméket visel. Méretei: 176 cm$ mellbőség: 86 cm$ derékbőség: 65 cm$ csípő: 90 cm Termékszám 00SM7D-0JASE-9XX");
         test.add("women,dress,dress,női,ruha,ruha,2684903,https://www.fashiondays.hu/v/2684903/n%C5%91i-/ruh%C3%A1zat?productSlug=mint%C3%A1s-ingruha-n%C5%91i-sense&tagId=1,https://www.fashiondays.hu/p/mint%C3%A1s-ingruha-n%C5%91i-sense-p2684903-1/,Mintás ingruha,9399,26.32,Sense,in_stock,https://fdcdn.akamaized.net/m/780x1132/products/30001/30000475/images/res_6e768ec428a14a24819976c42a2d8f6a.jpg?s=OFdMVRn9vdrB https://fdcdn.akamaized.net/m/780x1132/products/30001/30000475/images/res_b9600a108b857ff0e87b7790cfe8e8b9.jpg?s=OU5K1VHlauKf https://fdcdn.akamaized.net/m/780x1132/products/30001/30000475/images/res_88193c43c1549583a5a5ef8e83645774.jpg?s=jw9HmvZ6HrTz,fekete?krémszín,CA4823-CREM,Leírás Szín: fekete$ krémszín Stílus: hétköznapi Anyag: szintetikus anyag$ viszkóz Minta: van Szabás: bővülő Hossza: midi Nyakkivágás: V-hasítékkal Ujjak hossza: rövid Részletek: levehető megkötő a derékrészen Rögzítés: gombos Összetétel Anyag: 55% viszkóz$ 45% cupro Bélés: 100% viszkóz Termékszám CA4823-CREM");
@@ -43,6 +39,4 @@ public class DatasetFileReaderTest {
         List<String> readList = datasetFileReader.readFile("src/main/resources/static/testdata/test.csv");
         assertThat(test).isEqualTo(readList);
     }
-
-
 }

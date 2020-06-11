@@ -1,7 +1,9 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class RegionsItem{
 
 	@JsonProperty("region_info")
@@ -12,18 +14,6 @@ public class RegionsItem{
 
 	@JsonProperty("id")
 	private String id;
-
-	public RegionInfo getRegionInfo(){
-		return regionInfo;
-	}
-
-	public OutputsData getData(){
-		return data;
-	}
-
-	public String getId(){
-		return id;
-	}
 
 	@Override
  	public String toString(){

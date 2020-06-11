@@ -1,7 +1,9 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class BoundingBox{
 
 	@JsonProperty("top_row")
@@ -15,22 +17,6 @@ public class BoundingBox{
 
 	@JsonProperty("bottom_row")
 	private double bottomRow;
-
-	public double getTopRow(){
-		return topRow;
-	}
-
-	public double getRightCol(){
-		return rightCol;
-	}
-
-	public double getLeftCol(){
-		return leftCol;
-	}
-
-	public double getBottomRow(){
-		return bottomRow;
-	}
 
 	@Override
  	public String toString(){

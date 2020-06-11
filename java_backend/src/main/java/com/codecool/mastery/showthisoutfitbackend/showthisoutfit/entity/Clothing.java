@@ -34,7 +34,6 @@ public class Clothing {
 
     @Builder.Default
     @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
-    @EqualsAndHashCode.Exclude
     private List<ImageLink> images = new LinkedList<>();
 
     private String color;
@@ -42,10 +41,5 @@ public class Clothing {
 
     @Lob
     private String productDetails;
-
-    public void addImage(ImageLink imageLink) {
-        imageLink.setClothing(this);
-        this.images.add(imageLink);
-    }
 
 }

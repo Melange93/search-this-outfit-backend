@@ -1,33 +1,37 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
 class ColorCategorizerTest {
 
-    private ColorCategorizer colorCategorizer = new ColorCategorizer();
+    @Autowired
+    private ColorCategorizer colorCategorizer;
 
     @Test
-    public void getCategoryTestValidInput() {
-        assertThat("red".equals(colorCategorizer.getCategory("piros")));
+    void getColorGroupNameFromColorCatalogTestValidInput() {
+        assertThat("black").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test
-    public void getCategoryTestValidInputButNotInTheCategory() {
-        assertThat("else".equals(colorCategorizer.getCategory("körte")));
+    void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
+        assertThat("unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
     }
 
     @Test
-    public void getCategoryTestInvalidInputEmptyString() {
+    void getColorGroupNameFromColorCatalogyTestInvalidInputEmptyString() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(""));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(""));
     }
 
     @Test
-    public void getCategoryTestInvalidInputWhiteSpace() {
+    public void getColorGroupNameFromColorCatalogTestInvalidInputWhiteSpace() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(" "));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(" "));
     }
 
 }

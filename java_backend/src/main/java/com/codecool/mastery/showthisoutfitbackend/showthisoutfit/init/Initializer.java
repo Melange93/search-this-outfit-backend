@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -33,10 +34,11 @@ public class Initializer {
     private ColorCategorizer colorChanger;
 
     private static final String DATASET_MAIN_FOLDER_PATH = "src/main/resources/static/databasedata/";
-    private String[] datasetFileNames = {"women_dress.csv",
-            "women_jeans.csv",
+    private final String[] datasetFileNames = {"women_dress.csv",
+            "women_pants.csv",
+            "women_shorts.csv",
             "women_skirt.csv",
-            "women_tshirt.csv"};
+            "women_top.csv"};
 
     private static final int GENDER_ENG = 0;
     private static final int CLASSIFICATION_ENG = 1;
@@ -53,11 +55,9 @@ public class Initializer {
     private static final int BRAND = 12;
     private static final int STOCK_STATUS_ENG = 13;
     private static final int IMAGES = 14;
-    private static final int COLORS = 15;
-    private static final int MAIN_COLOR = 0;
+    private static final int COLOR = 15;
     private static final int CATALOG_ID = 16;
     private static final int PRODUCT_DETAILS = 17;
-
 
     @Bean
     public CommandLineRunner afterInit() {
@@ -97,8 +97,7 @@ public class Initializer {
                     clothing.setImages(imageLinks);
                     imageLinkRepository.saveAll(imageLinks);
 
-                    String[] cols = result[COLORS].split("\\?");
-                    clothing.setColor(colorChanger.getCategory(cols[MAIN_COLOR]));
+                    clothing.setColor(colorChanger.getColorGroupNameFromColorCatalog(result[COLOR].toLowerCase()));
                     clothing.setCatalogId(result[CATALOG_ID]);
                     clothing.setProductDetails(result[PRODUCT_DETAILS].replaceAll("\\$", ", "));
 
@@ -107,5 +106,10 @@ public class Initializer {
             }
             log.info("The database upload is completed.");
         };
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 }
